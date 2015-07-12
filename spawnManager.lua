@@ -50,7 +50,7 @@ function spawnManager:spawn()
 	while not found do
 		local i = math.random(#self.spawnPoints)
 		local p = self.spawnPoints[i]
-		if magnitude(p.x - gameMode.p.phys.x, p.y - gameMode.p.phys.y) > 200 then
+		if magnitude(p.x - gameMode.p.phys.x, p.y - gameMode.p.phys.y) > 350 then
 			self.parent:addEnt(enemy, {self.spawnPoints[i].x, self.spawnPoints[i].y})
 			self.enemies = self.enemies + 1
 			found = true

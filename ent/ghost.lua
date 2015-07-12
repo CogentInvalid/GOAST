@@ -31,7 +31,7 @@ function ghost:update(dt)
 	if self.possessTimer < 0 then self.possessTimer = 0 end
 
 	--movement
-	local speed = 180; local accel = 2
+	local speed = 180; local accel = 2.5
 	local xMove = 0; local yMove = 0
 
 	if keyDown("up") then yMove = -(self.phys.vy+speed)*accel*dt end
@@ -87,7 +87,7 @@ function ghost:update(dt)
 	if self.phys.y+self.phys.h > 600 then self.phys.y = 600-self.phys.h end
 
 	--friction
-	self.phys:addVel(-self.phys.vx*1.8*dt, -self.phys.vy*1.8*dt, 0)
+	self.phys:addVel(-self.phys.vx*1.5*dt, -self.phys.vy*1.5*dt, 0)
 
 end
 

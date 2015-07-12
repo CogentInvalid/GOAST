@@ -109,8 +109,9 @@ function enemy:shoot(target)
 	local ang = angle:new({x - self.phys.x, y - self.phys.y})
 	ang:addTheta((math.random()-0.5)*0.5)
 	local friendly = false
-	if self.possessed then friendly = true end
-	gameMode:addEnt(bullet, {self.phys.x+4, self.phys.y+4, ang.xPart*150, ang.yPart*150, friendly})
+	local speed = 150
+	if self.possessed then friendly = true; speed = 200 end
+	gameMode:addEnt(bullet, {self.phys.x+4, self.phys.y+4, ang.xPart*speed, ang.yPart*speed, friendly})
 end
 
 function enemy:changeMovement()

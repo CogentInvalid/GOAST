@@ -54,4 +54,7 @@ end
 
 function player:resolveCollision(entity, dir)
 	if entity.id == "tile" and (not keyDown("e")) then self.phys:hitSide(entity, dir) end
+	if entity.id == "bullet" then
+		if not entity.friendly then crash("YA DONE DIED SON") end
+	end
 end
