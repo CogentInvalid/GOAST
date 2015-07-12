@@ -25,8 +25,12 @@ function levelManager:loadLevel(name)
 			for j=1, level:getHeight() do
 				local x = i-1; local y = j-1
 				r, g, b = level:getPixel(x,y)
-				if r==0 then
+				if r==0 and g==0 and b==0 then
 					self.parent:addEnt(tile, {x*20, y*20})
+				end
+				if r==255 and g==0 and b==0 then
+					local spawn = self.parent.spawnMan
+					spawn:addSpawnPoint(x*20+4, y*20+4)
 				end
 			end
 		end

@@ -39,7 +39,23 @@ function enemy:update(dt)
 	end
 
 	--shooting
-	if self.fov:isInFOV(gameMode.p) and (not self.possessed) then
+	local target = gameMode.p
+	if self.possessed then
+		--find target
+		local nearest = 9999
+		target = false
+		for i,entity in ipairs(gameMode.ent) do
+			if entity.id == "enemy" and entity ~= self then
+				local x = entity.phys.x; local y = entity.phys.y
+				if magnitude(self.phys.x - x, self.phys.y - y) < nearest then
+					target = entity
+					nearest = magnitude(self.phys.x - x, self.phys.y - y)
+				end
+			end
+		end
+	end
+
+	if self.fov:isInFOV(target) then
 		self.burstTimer = self.burstTimer - dt
 	end
 	if self.burstTimer <= 0 then
@@ -47,7 +63,7 @@ function enemy:update(dt)
 		if self.shotsFired >= 3 then self.burstTimer = 1.5; self.shotsFired = 0 end
 	end
 	if self.shootTimer <= 0 then
-		self:shoot()
+		self:shoot(target)
 		self.shotsFired = self.shotsFired + 1
 		self.shootTimer = 0.25
 	end
@@ -88,11 +104,13 @@ function enemy:update(dt)
 
 end
 
-function enemy:shoot()
-	local x = gameMode.p.phys.x; local y = gameMode.p.phys.y
+function enemy:shoot(target)
+	local x = target.phys.x; local y = target.phys.y
 	local ang = angle:new({x - self.phys.x, y - self.phys.y})
 	ang:addTheta((math.random()-0.5)*0.5)
-	gameMode:addEnt(bullet, {self.phys.x+4, self.phys.y+4, ang.xPart*150, ang.yPart*150, false})
+	local friendly = false
+	if self.possessed then friendly = true end
+	gameMode:addEnt(bullet, {self.phys.x+4, self.phys.y+4, ang.xPart*150, ang.yPart*150, friendly})
 end
 
 function enemy:changeMovement()
@@ -119,5 +137,11 @@ function enemy:resolveCollision(entity, dir)
 		self.moveDir = angle:new({self.phys.vx, self.phys.vy})
 		self.moveDir:addTheta((math.random()-0.5)*0.1)
 		--self:changeMovement()
+	end
+	if entity.id == "bullet" then
+		if entity.friendly and (not self.possessed) then
+			self.die = true
+			gameMode.spawnMan.enemies = gameMode.spawnMan.enemies - 1
+		end
 	end
 end

@@ -6,8 +6,8 @@ function spawnManager:init(parent)
 	self.parent = parent
 
 	self.spawnPoints = {}
-	self.spawnPoints[1] = {x=25, y=25}
-	self.spawnPoints[2] = {x=800, y=200}
+	--self:addSpawnPoint(25, 25)
+	--self:addSpawnPoint(800, 200)
 
 	self.totalTime = 0
 
@@ -41,8 +41,19 @@ function spawnManager:update(dt)
 
 end
 
+function spawnManager:addSpawnPoint(x, y)
+	self.spawnPoints[#self.spawnPoints+1] = {x=x, y=y}
+end
+
 function spawnManager:spawn()
-	local i = math.random(#self.spawnPoints)
-	self.parent:addEnt(enemy, {self.spawnPoints[i].x, self.spawnPoints[i].y})
-	self.enemies = self.enemies + 1
+	local found = false
+	while not found do
+		local i = math.random(#self.spawnPoints)
+		local p = self.spawnPoints[i]
+		if magnitude(p.x - gameMode.p.phys.x, p.y - gameMode.p.phys.y) > 200 then
+			self.parent:addEnt(enemy, {self.spawnPoints[i].x, self.spawnPoints[i].y})
+			self.enemies = self.enemies + 1
+			found = true
+		end
+	end
 end

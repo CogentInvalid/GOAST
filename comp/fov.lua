@@ -20,6 +20,8 @@ end
 
 function fov:isInFOV(ent)
 
+	if ent == false then return false end
+
 	--calculate if player is out of range
 	local p1 = self.parent.phys
 	local x = p1.x+p1.w/2; local y = p1.y+p1.h/2
