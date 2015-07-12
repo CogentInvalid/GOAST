@@ -5,6 +5,7 @@ require "/ent/player"
 require "/ent/ghost"
 require "/ent/enemy"
 require "/ent/tile"
+require "ent/bullet"
 
 game = class:new()
 
@@ -84,29 +85,16 @@ function game:draw()
 end
 
 function game:keypressed(key)
-	--debug: possession
-	if key == "p" then
-		for i, entity in ipairs(self.ent) do
-			if entity.id == "enemy" then entity.possessed = false end
-			if entity.id == "player" then entity.alive = true end
-		end
-	end
-
-	if key == "o" then
-		for i, entity in ipairs(self.ent) do
-			if entity.id == "enemy" then entity.possessed = true end
-			if entity.id == "player" then entity.alive = false end
-		end
-	end
-
 	--become a goast
 	if key == "z" then
+		--leave player
 		if self.p.alive then
 			self.p.alive = false
 			local g = self:addEnt(ghost, {self.p.phys.x, self.p.phys.y})
 			g.phys.vx = self.p.phys.vx * 2
 			g.phys.vy = self.p.phys.vy * 2
 		end
+		--leave possessed enemy
 		for i,entity in ipairs(self.ent) do
 			if entity.id == "enemy" then
 				if entity.possessed then

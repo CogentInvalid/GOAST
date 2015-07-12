@@ -1,4 +1,5 @@
 require "comp/physics"
+require "comp/fov"
 
 enemy = class:new()
 
@@ -13,6 +14,8 @@ function enemy:init(args)
 	--phys component
 	self.phys = physics:new(self, x, y, 16, 16)
 	self.component[#self.component+1] = self.phys
+	self.fov = fov:new(self, 0, math.pi*2, 200)
+	self.component[#self.component+1] = self.fov
 
 	self.speed = 200
 	self.moveTimer = 4
@@ -56,6 +59,20 @@ function enemy:update(dt)
 
 	--friction
 	self.phys:addVel(-self.phys.vx*3*dt, -self.phys.vy*3*dt, 0)
+
+	--spawn ghost if possessed/dead
+	if self.die and self.possessed then
+		local g = gameMode:addEnt(ghost, {self.phys.x, self.phys.y})
+		g.phys.vx = self.phys.vx * 2
+		g.phys.vy = self.phys.vy * 2
+	end
+
+	--die if you see the player
+	if self.fov:isInFOV(gameMode.p) then
+		local x = gameMode.p.phys.x; local y = gameMode.p.phys.y
+		local ang = angle:new({x - self.phys.x, y - self.phys.y})
+		gameMode:addEnt(bullet, {self.phys.x, self.phys.y, ang.xPart*200, ang.yPart*200, false})
+	end
 
 end
 

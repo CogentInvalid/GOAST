@@ -16,8 +16,6 @@ function ghost:init(args)
 
 	self.possessTimer = 0.8
 
-	self.alive = true --is not a ghoooost?
-
 	self.die = false --should this entity be destroyed next frame?
 end
 
@@ -28,20 +26,18 @@ function ghost:update(dt)
 		comp:update(dt)
 	end
 
+	--wait a second before repossessing something
 	self.possessTimer = self.possessTimer - dt
 	if self.possessTimer < 0 then self.possessTimer = 0 end
 
-	local speed = 180; local accel = 2
-
 	--movement
+	local speed = 180; local accel = 2
 	local xMove = 0; local yMove = 0
 
-	if self.alive then
-		if keyDown("up") then yMove = -(self.phys.vy+speed)*accel*dt end
-		if keyDown("down") then yMove = -(self.phys.vy-speed)*accel*dt end
-		if keyDown("left") then xMove = -(self.phys.vx+speed)*accel*dt end
-		if keyDown("right") then xMove = -(self.phys.vx-speed)*accel*dt end
-	end
+	if keyDown("up") then yMove = -(self.phys.vy+speed)*accel*dt end
+	if keyDown("down") then yMove = -(self.phys.vy-speed)*accel*dt end
+	if keyDown("left") then xMove = -(self.phys.vx+speed)*accel*dt end
+	if keyDown("right") then xMove = -(self.phys.vx-speed)*accel*dt end
 	self.phys:addVel(xMove, yMove)
 
 	--possession
@@ -60,18 +56,28 @@ function ghost:update(dt)
 			end
 		end
 
+		--move to target
 		local x = t.phys.x; local y = t.phys.y
 		if magnitude(self.phys.x - x, self.phys.y - y) < 80 and self.possessTimer <= 0 then
 			local ang = angle:new({x-self.phys.x, y-self.phys.y})
 			self.phys:addVel(ang.xPart*150*dt, ang.yPart*150*dt)
 			self.phys:addPos(ang.xPart*20*dt, ang.yPart*20*dt)
 
+			--possess target
 			if magnitude(self.phys.x - x, self.phys.y - y) < 2 then
 				self.die = true
 				if t.id == "player" then t.alive = true end
 				if t.id == "enemy" then t.possessed = true end
 			end
 		end
+	end
+
+	--tether to player
+	local x = gameMode.p.phys.x; local y = gameMode.p.phys.y
+	local dist = magnitude(self.phys.x - x, self.phys.y - y)
+	if dist > 350 then
+		local ang = angle:new({x-self.phys.x, y-self.phys.y})
+		self.phys:addVel(ang.xPart*dist*0.8*dt, ang.yPart*dist*0.8*dt)
 	end
 
 	--restrict to level bounds
@@ -81,7 +87,7 @@ function ghost:update(dt)
 	if self.phys.y+self.phys.h > 600 then self.phys.y = 600-self.phys.h end
 
 	--friction
-	self.phys:addVel(-self.phys.vx*2*dt, -self.phys.vy*2*dt, 0)
+	self.phys:addVel(-self.phys.vx*1.8*dt, -self.phys.vy*1.8*dt, 0)
 
 end
 
