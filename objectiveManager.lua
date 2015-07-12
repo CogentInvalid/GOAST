@@ -18,11 +18,11 @@ end
 
 function objectiveManager:draw()
 	love.graphics.setColor(255,0,0)
-	love.graphics.rectangle("fill", 30 + 360-(self.obj1/90)*360, 570, (self.obj1/90)*360, 20)
-	love.graphics.rectangle("fill", 410, 570, (self.obj2/90)*360, 20)
+	love.graphics.rectangle("fill", 30 + 360-(self.obj1/120)*360, 570, (self.obj1/120)*360, 20)
+	love.graphics.rectangle("fill", 410, 570, (self.obj2/120)*360, 20)
 end
 
 function objectiveManager:addCharge(num)
-	if num == 1 then self.obj1 = 90 end
-	if num == 2 then self.obj2 = 90 end
+	if num == 1 then self.obj1 = 120 end
+	if num == 2 then self.obj2 = 120 end
 end
