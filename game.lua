@@ -100,11 +100,23 @@ function game:keypressed(key)
 	end
 
 	--become a goast
-	if key == "z" and self.p.alive then
-		self.p.alive = false
-		local g = self:addEnt(ghost, {self.p.phys.x, self.p.phys.y})
-		g.phys.vx = self.p.phys.vx * 2
-		g.phys.vy = self.p.phys.vy * 2
+	if key == "z" then
+		if self.p.alive then
+			self.p.alive = false
+			local g = self:addEnt(ghost, {self.p.phys.x, self.p.phys.y})
+			g.phys.vx = self.p.phys.vx * 2
+			g.phys.vy = self.p.phys.vy * 2
+		end
+		for i,entity in ipairs(self.ent) do
+			if entity.id == "enemy" then
+				if entity.possessed then
+					entity.possessed = false
+					local g = self:addEnt(ghost, {entity.phys.x, entity.phys.y})
+					g.phys.vx = entity.phys.vx * 2
+					g.phys.vy = entity.phys.vy * 2
+				end
+			end
+		end
 	end
 end
 

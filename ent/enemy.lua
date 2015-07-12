@@ -39,10 +39,10 @@ function enemy:update(dt)
 		xMove = self.moveDir.xPart * speed * dt
 		yMove = self.moveDir.yPart * speed * dt
 	else
-		if keyDown("w") then yMove = -(self.phys.vy+speed)*accel*dt end
-		if keyDown("s") then yMove = -(self.phys.vy-speed)*accel*dt end
-		if keyDown("a") then xMove = -(self.phys.vx+speed)*accel*dt end
-		if keyDown("d") then xMove = -(self.phys.vx-speed)*accel*dt end
+		if keyDown("up") then yMove = -(self.phys.vy+speed)*accel*dt end
+		if keyDown("down") then yMove = -(self.phys.vy-speed)*accel*dt end
+		if keyDown("left") then xMove = -(self.phys.vx+speed)*accel*dt end
+		if keyDown("right") then xMove = -(self.phys.vx-speed)*accel*dt end
 	end
 	self.phys:addVel(xMove, yMove)
 
@@ -68,6 +68,7 @@ end
 function enemy:draw()
 
 	love.graphics.setColor(255,0,0)
+	if self.possessed then love.graphics.setColor(200, 20, 20) end
 	love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
 
 end

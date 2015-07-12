@@ -46,7 +46,21 @@ function ghost:update(dt)
 
 	--possession
 	if keyDown("z") then
-		local x = gameMode.p.phys.x; local y = gameMode.p.phys.y
+
+		--find target
+		local nearest = 9999
+		local t = false
+		for i,entity in ipairs(gameMode.ent) do
+			if entity.id == "enemy" or entity.id == "player" then
+				local x = entity.phys.x; local y = entity.phys.y
+				if magnitude(self.phys.x - x, self.phys.y - y) < nearest then
+					t = entity
+					nearest = magnitude(self.phys.x - x, self.phys.y - y)
+				end
+			end
+		end
+
+		local x = t.phys.x; local y = t.phys.y
 		if magnitude(self.phys.x - x, self.phys.y - y) < 80 and self.possessTimer <= 0 then
 			local ang = angle:new({x-self.phys.x, y-self.phys.y})
 			self.phys:addVel(ang.xPart*150*dt, ang.yPart*150*dt)
@@ -54,7 +68,8 @@ function ghost:update(dt)
 
 			if magnitude(self.phys.x - x, self.phys.y - y) < 2 then
 				self.die = true
-				gameMode.p.alive = true
+				if t.id == "player" then t.alive = true end
+				if t.id == "enemy" then t.possessed = true end
 			end
 		end
 	end
