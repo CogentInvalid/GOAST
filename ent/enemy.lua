@@ -14,12 +14,16 @@ function enemy:init(args)
 	--phys component
 	self.phys = physics:new(self, x, y, 16, 16)
 	self.component[#self.component+1] = self.phys
-	self.fov = fov:new(self, 0, math.pi*2, 200)
+	self.fov = fov:new(self, 0, math.pi*2, 300)
 	self.component[#self.component+1] = self.fov
 
 	self.speed = 200
 	self.moveTimer = 4
 	self.moveDir = angle:new({1,0})
+
+	self.shotsFired = 0
+	self.shootTimer = 0.25
+	self.burstTimer = 1.5
 
 	self.possessed = false
 
@@ -31,6 +35,20 @@ function enemy:update(dt)
 	--update all components
 	for i,comp in ipairs(self.component) do
 		comp:update(dt)
+	end
+
+	--shooting
+	if self.fov:isInFOV(gameMode.p) then
+		self.burstTimer = self.burstTimer - dt
+	end
+	if self.burstTimer <= 0 then
+		self.shootTimer = self.shootTimer - dt
+		if self.shotsFired >= 3 then self.burstTimer = 1.5; self.shotsFired = 0 end
+	end
+	if self.shootTimer <= 0 then
+		self:shoot()
+		self.shotsFired = self.shotsFired + 1
+		self.shootTimer = 0.25
 	end
 
 	local speed = self.speed; local accel = 5
@@ -67,13 +85,13 @@ function enemy:update(dt)
 		g.phys.vy = self.phys.vy * 2
 	end
 
-	--die if you see the player
-	if self.fov:isInFOV(gameMode.p) then
-		local x = gameMode.p.phys.x; local y = gameMode.p.phys.y
-		local ang = angle:new({x - self.phys.x, y - self.phys.y})
-		gameMode:addEnt(bullet, {self.phys.x, self.phys.y, ang.xPart*200, ang.yPart*200, false})
-	end
+end
 
+function enemy:shoot()
+	local x = gameMode.p.phys.x; local y = gameMode.p.phys.y
+	local ang = angle:new({x - self.phys.x, y - self.phys.y})
+	ang:addTheta((math.random()-0.5)*0.5)
+	gameMode:addEnt(bullet, {self.phys.x+4, self.phys.y+4, ang.xPart*150, ang.yPart*150, false})
 end
 
 function enemy:changeMovement()
