@@ -13,8 +13,7 @@ function love.load()
 	--math.randomseed(os.time())
 
 	love.window.setMode(800, 600) --set window dimensions
-	--love.window.setTitle("TRANSMATTER WHIRLMPOLE VACCUMBUSTER")
-	--love.graphics.setBackgroundColor(100,0,0)
+	love.window.setTitle("GÖAST")
 
 	--imgManager = imageManager:new()
 	--audioManager = audioManager:new()
