@@ -32,10 +32,10 @@ function player:update(dt)
 	local xMove = 0; local yMove = 0
 
 	if self.alive then
-		if keyDown("w") then yMove = -(self.phys.vy+speed)*accel*dt end
-		if keyDown("s") then yMove = -(self.phys.vy-speed)*accel*dt end
-		if keyDown("a") then xMove = -(self.phys.vx+speed)*accel*dt end
-		if keyDown("d") then xMove = -(self.phys.vx-speed)*accel*dt end
+		if keyDown("up") then yMove = -(self.phys.vy+speed)*accel*dt end
+		if keyDown("down") then yMove = -(self.phys.vy-speed)*accel*dt end
+		if keyDown("left") then xMove = -(self.phys.vx+speed)*accel*dt end
+		if keyDown("right") then xMove = -(self.phys.vx-speed)*accel*dt end
 	end
 	self.phys:addVel(xMove, yMove)
 

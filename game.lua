@@ -2,6 +2,7 @@ require "camera"
 require "collisionManager"
 require "levelManager"
 require "/ent/player"
+require "/ent/ghost"
 require "/ent/enemy"
 require "/ent/tile"
 
@@ -29,7 +30,7 @@ function game:start()
 
 	self.ent = {}
 
-	self.p = self:addEnt(player, {10, 10})
+	self.p = self:addEnt(player, {25, 25})
 
 	self.levMan:loadLevel("level")
 
@@ -83,6 +84,7 @@ function game:draw()
 end
 
 function game:keypressed(key)
+	--debug: possession
 	if key == "p" then
 		for i, entity in ipairs(self.ent) do
 			if entity.id == "enemy" then entity.possessed = false end
@@ -95,6 +97,14 @@ function game:keypressed(key)
 			if entity.id == "enemy" then entity.possessed = true end
 			if entity.id == "player" then entity.alive = false end
 		end
+	end
+
+	--become a goast
+	if key == "z" and self.p.alive then
+		self.p.alive = false
+		local g = self:addEnt(ghost, {self.p.phys.x, self.p.phys.y})
+		g.phys.vx = self.p.phys.vx * 2
+		g.phys.vy = self.p.phys.vy * 2
 	end
 end
 
@@ -112,7 +122,7 @@ end
 function game:removeEnt(entity, i)
 	--for i, comp in ipairs(entity.component) do comp:die(entity) end
 	self.colMan:removeEnt(entity)
-	table.remove(ent, i)
+	table.remove(self.ent, i)
 	--table.remove(rcol, i)
 end
 
