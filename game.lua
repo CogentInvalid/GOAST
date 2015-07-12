@@ -1,8 +1,9 @@
 require "camera"
-require "/ent/player"
-require "/ent/tile"
 require "collisionManager"
 require "levelManager"
+require "/ent/player"
+require "/ent/enemy"
+require "/ent/tile"
 
 game = class:new()
 
@@ -21,20 +22,16 @@ end
 function game:start()
 
 	self.component = {}
-	self.component[#self.component+1] = camera:new(self)
-	self.cam = self:getComp("camera")
-	self.component[#self.component+1] = collisionManager:new(self)
-	self.colMan = self:getComp("collisionManager")
-	self.component[#self.component+1] = levelManager:new(self)
-	self.levMan = self:getComp("levelManager")
+
+	self.cam = self:addComp(camera)
+	self.colMan = self:addComp(collisionManager)
+	self.levMan = self:addComp(levelManager)
 
 	self.ent = {}
 
 	self.p = self:addEnt(player, {10, 10})
 
 	self.levMan:loadLevel("level")
-
-	--self:addEnt(tile, {50, 50})
 
 end
 
@@ -86,11 +83,23 @@ function game:draw()
 end
 
 function game:keypressed(key)
+	if key == "p" then
+		for i, entity in ipairs(self.ent) do
+			if entity.id == "enemy" then entity.possessed = false end
+			if entity.id == "player" then entity.alive = true end
+		end
+	end
 
+	if key == "o" then
+		for i, entity in ipairs(self.ent) do
+			if entity.id == "enemy" then entity.possessed = true end
+			if entity.id == "player" then entity.alive = false end
+		end
+	end
 end
 
 function game:mousepressed(x, y, button)
-
+	self:addEnt(enemy, {x, y})
 end
 
 function game:addEnt(type, args)
@@ -105,6 +114,11 @@ function game:removeEnt(entity, i)
 	self.colMan:removeEnt(entity)
 	table.remove(ent, i)
 	--table.remove(rcol, i)
+end
+
+function game:addComp(comp)
+	self.component[#self.component+1] = comp:new(self)
+	return self.component[#self.component]
 end
 
 function game:getComp(name) --locate a component by name.

@@ -2,11 +2,6 @@ require "libs/class"
 require "libs/angle"
 anim8 = require "libs/anim8"
 require "game"
---require "mainMenu"
---require "endMenu"
---require "imageManager"
---require "audioManager"
---require "font"
 
 function love.load()
 
@@ -22,7 +17,6 @@ function love.load()
 	gameMode = game:new()
 	--menu = mainMenu:new()
 	--lose = endMenu:new()
-	--currentMode = menu
 	currentMode = gameMode
 
 end

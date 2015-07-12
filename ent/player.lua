@@ -14,6 +14,8 @@ function player:init(args)
 	self.phys = physics:new(self, x, y, 16, 16)
 	self.component[#self.component+1] = self.phys
 
+	self.alive = true --is not a ghoooost?
+
 	self.die = false --should this entity be destroyed next frame?
 end
 
@@ -24,15 +26,17 @@ function player:update(dt)
 		comp:update(dt)
 	end
 
-	local speed = 200; local accel = 5
+	local speed = 180; local accel = 5
 
 	--movement
 	local xMove = 0; local yMove = 0
 
-	if keyDown("w") then yMove = -(self.phys.vy+speed)*accel*dt end
-	if keyDown("s") then yMove = -(self.phys.vy-speed)*accel*dt end
-	if keyDown("a") then xMove = -(self.phys.vx+speed)*accel*dt end
-	if keyDown("d") then xMove = -(self.phys.vx-speed)*accel*dt end
+	if self.alive then
+		if keyDown("w") then yMove = -(self.phys.vy+speed)*accel*dt end
+		if keyDown("s") then yMove = -(self.phys.vy-speed)*accel*dt end
+		if keyDown("a") then xMove = -(self.phys.vx+speed)*accel*dt end
+		if keyDown("d") then xMove = -(self.phys.vx-speed)*accel*dt end
+	end
 	self.phys:addVel(xMove, yMove)
 
 	--friction
@@ -43,10 +47,11 @@ end
 function player:draw()
 
 	love.graphics.setColor(0,255,0)
+	if not self.alive then love.graphics.setColor(20,100,20) end
 	love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
 
 end
 
 function player:resolveCollision(entity, dir)
-	if entity.id == "tile" then self.phys:hitSide(entity, dir) end
+	if entity.id == "tile" and (not keyDown("e")) then self.phys:hitSide(entity, dir) end
 end

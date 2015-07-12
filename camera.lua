@@ -6,7 +6,7 @@ function camera:init(parent)
 	self.game = parent
 
 	self.camBorder = 0
-	self.cam = gamera.new(0-self.camBorder,0-self.camBorder,2000,1750)
+	self.cam = gamera.new(0-self.camBorder,0-self.camBorder,800,600)
 	self.cam:setScale(1)
 	self.cam:setPosition(0,0)
 	self.screenShake = 0
@@ -14,15 +14,15 @@ function camera:init(parent)
 	self.x = self.cam.x
 	self.y = self.cam.y
 
-	self.active = false
+	self.active = true
 
 end
 
 function camera:update(dt)
 	local p = self.game.p
 	if self.active then
-		self.x = self.x - (self.x-p.physics.x)*5*dt
-		self.y = self.y - (self.y-p.physics.y)*5*dt
+		self.x = self.x - (self.x-p.phys.x)*5*dt
+		self.y = self.y - (self.y-p.phys.y)*5*dt
 
 		local s = self.cam:getScale()
 		if s < 1 then self.cam:setScale(s+(0.8-s)*0.5*dt) end
@@ -49,8 +49,8 @@ function camera:zoomOut(amt)
 end
 
 function camera:focus(dt)
-	self.x = self.game.p.physics.x
-	self.y = self.game.p.physics.y
+	self.x = self.game.p.phys.x
+	self.y = self.game.p.phys.y
 	self.cam:setPosition(math.floor(self.x), math.floor(self.y))
 end
 
