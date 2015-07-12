@@ -10,6 +10,8 @@ function love.load()
 	love.window.setMode(800, 600) --set window dimensions
 	love.window.setTitle("GÖAST")
 
+	love.graphics.setDefaultFilter("nearest", "nearest")
+
 	--imgManager = imageManager:new()
 	--audioManager = audioManager:new()
 

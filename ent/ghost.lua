@@ -11,10 +11,18 @@ function ghost:init(args)
 	self.component = {}
 
 	--phys component
-	self.phys = physics:new(self, x, y, 16, 16)
+	self.phys = physics:new(self, x, y, 24, 24)
 	self.component[#self.component+1] = self.phys
 
 	self.possessTimer = 0.8
+
+	self.img = img["player-ghost-spritesheet"]
+	self.quad = {}
+	self.quad["d"] = love.graphics.newQuad(0, 0, 16, 16, 64, 16)
+	self.quad["u"] = love.graphics.newQuad(16, 0, 16, 16, 64, 16)
+	self.quad["l"] = love.graphics.newQuad(32, 0, 16, 16, 64, 16)
+	self.quad["r"] = love.graphics.newQuad(48, 0, 16, 16, 64, 16)
+	self.dir = "d"
 
 	self.die = false --should this entity be destroyed next frame?
 end
@@ -91,12 +99,25 @@ function ghost:update(dt)
 	--friction
 	self.phys:addVel(-self.phys.vx*1.5*dt, -self.phys.vy*1.5*dt, 0)
 
+	--animation
+	if math.abs(self.phys.vx) > math.abs(self.phys.vy) then
+		if self.phys.vx > 0 then self.dir = "r" end
+		if self.phys.vx < 0 then self.dir = "l" end
+	end
+	if math.abs(self.phys.vy) > math.abs(self.phys.vx) then
+		if self.phys.vy > 0 then self.dir = "d" end
+		if self.phys.vy < 0 then self.dir = "u" end
+	end
+
 end
 
 function ghost:draw()
 
 	love.graphics.setColor(80,200,200,200)
-	love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
+	--love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
+
+	love.graphics.setColor(255,255,255,150)
+	love.graphics.draw(self.img, self.quad[self.dir], math.floor(self.phys.x-4), math.floor(self.phys.y-4), 0, 2, 2)
 
 end
 

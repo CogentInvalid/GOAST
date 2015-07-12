@@ -3,6 +3,7 @@ require "collisionManager"
 require "levelManager"
 require "spawnManager"
 require "objectiveManager"
+require "image"
 require "/ent/player"
 require "/ent/ghost"
 require "/ent/enemy"
@@ -25,6 +26,8 @@ function game:init()
 end
 
 function game:start()
+
+	loadImages()
 
 	self.component = {}
 
