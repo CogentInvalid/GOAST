@@ -38,6 +38,10 @@ function enemy:update(dt)
 		comp:update(dt)
 	end
 
+	if self.possessed then
+		gameMode.cam.target = self
+	end
+
 	--shooting
 	local target = gameMode.p
 	if self.possessed then

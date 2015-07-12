@@ -21,6 +21,8 @@ end
 
 function ghost:update(dt)
 
+	gameMode.cam.target = self
+
 	--update all components
 	for i,comp in ipairs(self.component) do
 		comp:update(dt)

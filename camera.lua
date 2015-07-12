@@ -14,12 +14,17 @@ function camera:init(parent)
 	self.x = self.cam.x
 	self.y = self.cam.y
 
+	self.target = nil
+
 	self.active = true
 
 end
 
 function camera:update(dt)
-	local p = self.game.p
+
+	if self.target == nil then self.target = self.game.p end
+
+	local p = self.target
 	if self.active then
 		self.x = self.x - (self.x-p.phys.x)*5*dt
 		self.y = self.y - (self.y-p.phys.y)*5*dt

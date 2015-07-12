@@ -21,6 +21,8 @@ end
 
 function player:update(dt)
 
+	if self.alive then gameMode.cam.target = self end
+
 	--update all components
 	for i,comp in ipairs(self.component) do
 		comp:update(dt)
