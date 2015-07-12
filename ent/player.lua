@@ -59,6 +59,9 @@ function player:resolveCollision(entity, dir)
 	if entity.id == "bullet" then
 		if not entity.friendly then crash("YA DONE DIED SON") end
 	end
+	if entity.id == "enemy" then
+		crash("YA DONE DIED SON")
+	end
 	if entity.id == "objective" then
 		gameMode.objMan:addCharge(entity.num)
 	end

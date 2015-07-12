@@ -61,6 +61,7 @@ function enemy:update(dt)
 
 	if self.fov:isInFOV(target) then
 		self.burstTimer = self.burstTimer - dt
+		if self.possessed then self.burstTimer = self.burstTimer - 0.5*dt end
 	end
 	if self.burstTimer <= 0 then
 		self.shootTimer = self.shootTimer - dt

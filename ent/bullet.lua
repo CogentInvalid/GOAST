@@ -37,5 +37,5 @@ function bullet:draw()
 end
 
 function bullet:resolveCollision(entity, dir)
-	if entity.id == "tile" then self.die = true end
+	if entity.id == "tile" or entity.id == "objective" then self.die = true end
 end
