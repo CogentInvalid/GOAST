@@ -40,6 +40,10 @@ function game:start()
 
 	self.levMan:loadLevel("level")
 
+	for i=1, 5 do
+		self.spawnMan:spawn(250)
+	end
+
 end
 
 function game:update(delta)

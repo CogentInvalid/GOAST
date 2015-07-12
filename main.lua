@@ -5,7 +5,7 @@ require "game"
 
 function love.load()
 
-	--math.randomseed(os.time())
+	math.randomseed(os.time())
 
 	love.window.setMode(800, 600) --set window dimensions
 	love.window.setTitle("GÖAST")

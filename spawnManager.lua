@@ -35,7 +35,7 @@ function spawnManager:update(dt)
 
 	self.spawnTimer = self.spawnTimer - dt
 	if self.spawnTimer <= 0 then
-		self:spawn()
+		self:spawn(250)
 		self.spawnTimer = spawnRate
 	end
 
@@ -45,12 +45,12 @@ function spawnManager:addSpawnPoint(x, y)
 	self.spawnPoints[#self.spawnPoints+1] = {x=x, y=y}
 end
 
-function spawnManager:spawn()
+function spawnManager:spawn(range)
 	local found = false
 	while not found do
 		local i = math.random(#self.spawnPoints)
 		local p = self.spawnPoints[i]
-		if magnitude(p.x - gameMode.p.phys.x, p.y - gameMode.p.phys.y) > 350 then
+		if magnitude(p.x - self.parent.p.phys.x, p.y - self.parent.p.phys.y) > range then
 			self.parent:addEnt(enemy, {self.spawnPoints[i].x, self.spawnPoints[i].y})
 			self.enemies = self.enemies + 1
 			found = true
