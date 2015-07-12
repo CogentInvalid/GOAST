@@ -14,6 +14,7 @@ function levelManager:update(dt)
 end
 
 function levelManager:loadLevel(name)
+	local objectiveCount = 1
 	local left = 99999; local top = 99999
 	local right = 0; local bottom = 0
 	if love.filesystem.exists(name..".png") then
@@ -31,6 +32,10 @@ function levelManager:loadLevel(name)
 				if r==255 and g==0 and b==0 then
 					local spawn = self.parent.spawnMan
 					spawn:addSpawnPoint(x*20+4, y*20+4)
+				end
+				if r==0 and g==0 and b==255 then
+					self.parent:addEnt(objective, {x*20, y*20, objectiveCount})
+					objectiveCount = objectiveCount + 1
 				end
 			end
 		end

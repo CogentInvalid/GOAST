@@ -7,7 +7,8 @@ require "/ent/player"
 require "/ent/ghost"
 require "/ent/enemy"
 require "/ent/tile"
-require "ent/bullet"
+require "/ent/objective"
+require "/ent/bullet"
 
 game = class:new()
 

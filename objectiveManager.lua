@@ -19,7 +19,7 @@ end
 function objectiveManager:draw()
 	love.graphics.setColor(255,0,0)
 	love.graphics.rectangle("fill", 30 + 360-(self.obj1/90)*360, 570, (self.obj1/90)*360, 20)
-	love.graphics.rectangle("fill", 410, 570, (self.obj1/90)*360, 20)
+	love.graphics.rectangle("fill", 410, 570, (self.obj2/90)*360, 20)
 end
 
 function objectiveManager:addCharge(num)
