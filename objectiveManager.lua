@@ -11,8 +11,8 @@ end
 
 function objectiveManager:update(dt)
 
-	self.obj1 = self.obj1 - 0.7*dt
-	self.obj2 = self.obj2 - 0.7*dt
+	self.obj1 = self.obj1 - 0.75*dt
+	self.obj2 = self.obj2 - 0.75*dt
 
 end
 
@@ -28,7 +28,7 @@ function objectiveManager:addCharge(num)
 		if self.obj1 > 120 then self.obj1 = 120 end
 	end
 	if num == 2 then
-		self.obj2 = self.obj1 + 30*0.05
+		self.obj2 = self.obj2 + 30*0.05
 		if self.obj2 > 120 then self.obj2 = 120 end
 	end
 end
