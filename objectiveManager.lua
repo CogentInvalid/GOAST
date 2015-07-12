@@ -3,8 +3,8 @@ objectiveManager = class:new()
 function objectiveManager:init(parent)
 	self.id = "objectiveManager"
 
-	self.obj1 = 90
-	self.obj2 = 90
+	self.obj1 = 120
+	self.obj2 = 120
 
 	self.parent = parent
 end
