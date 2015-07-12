@@ -2,6 +2,7 @@ require "camera"
 require "collisionManager"
 require "levelManager"
 require "spawnManager"
+require "objectiveManager"
 require "/ent/player"
 require "/ent/ghost"
 require "/ent/enemy"
@@ -30,6 +31,7 @@ function game:start()
 	self.colMan = self:addComp(collisionManager)
 	self.levMan = self:addComp(levelManager)
 	self.spawnMan = self:addComp(spawnManager)
+	self.objMan = self:addComp(objectiveManager)
 
 	self.ent = {}
 
@@ -84,6 +86,7 @@ function game:draw()
 		--end
 
 	end)
+	self.objMan:draw()
 end
 
 function game:keypressed(key)

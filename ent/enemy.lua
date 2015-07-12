@@ -148,5 +148,9 @@ function enemy:resolveCollision(entity, dir)
 			self.die = true
 			gameMode.spawnMan.enemies = gameMode.spawnMan.enemies - 1
 		end
+		if (not entity.friendly) and self.possessed then
+			self.die = true
+			gameMode.spawnMan.enemies = gameMode.spawnMan.enemies - 1
+		end
 	end
 end

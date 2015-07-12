@@ -24,10 +24,15 @@ function camera:update(dt)
 
 	if self.target == nil then self.target = self.game.p end
 
-	local p = self.target
+	local p1 = self.game.p
+	local p2 = self.target
+
+	tx = (p1.phys.x+p2.phys.x)/2
+	ty = (p1.phys.y+p2.phys.y)/2
+
 	if self.active then
-		self.x = self.x - (self.x-p.phys.x)*5*dt
-		self.y = self.y - (self.y-p.phys.y)*5*dt
+		self.x = self.x - (self.x-tx)*5*dt
+		self.y = self.y - (self.y-ty)*5*dt
 
 		local s = self.cam:getScale()
 		if s < 1 then self.cam:setScale(s+(0.8-s)*0.5*dt) end
