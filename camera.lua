@@ -6,7 +6,7 @@ function camera:init(parent)
 	self.game = parent
 
 	self.camBorder = 0
-	self.cam = gamera.new(0-self.camBorder,0-self.camBorder,800,600)
+	self.cam = gamera.new(0-self.camBorder,0-self.camBorder,1600,600)
 	self.cam:setScale(1)
 	self.cam:setPosition(0,0)
 	self.screenShake = 0

@@ -1,6 +1,7 @@
 require "camera"
 require "collisionManager"
 require "levelManager"
+require "spawnManager"
 require "/ent/player"
 require "/ent/ghost"
 require "/ent/enemy"
@@ -28,6 +29,7 @@ function game:start()
 	self.cam = self:addComp(camera)
 	self.colMan = self:addComp(collisionManager)
 	self.levMan = self:addComp(levelManager)
+	self.spawnMan = self:addComp(spawnManager)
 
 	self.ent = {}
 

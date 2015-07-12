@@ -20,6 +20,7 @@ function enemy:init(args)
 	self.speed = 200
 	self.moveTimer = 4
 	self.moveDir = angle:new({1,0})
+	self.moveDir:setTheta(math.random()*2*math.pi)
 
 	self.shotsFired = 0
 	self.shootTimer = 0.25
@@ -38,7 +39,7 @@ function enemy:update(dt)
 	end
 
 	--shooting
-	if self.fov:isInFOV(gameMode.p) then
+	if self.fov:isInFOV(gameMode.p) and (not self.possessed) then
 		self.burstTimer = self.burstTimer - dt
 	end
 	if self.burstTimer <= 0 then

@@ -82,7 +82,7 @@ function ghost:update(dt)
 
 	--restrict to level bounds
 	if self.phys.x < 0 then self.phys.x = 0 end
-	if self.phys.x+self.phys.w > 800 then self.phys.x = 800-self.phys.w end
+	if self.phys.x+self.phys.w > 1600 then self.phys.x = 1600-self.phys.w end
 	if self.phys.y < 0 then self.phys.y = 0 end
 	if self.phys.y+self.phys.h > 600 then self.phys.y = 600-self.phys.h end
 
