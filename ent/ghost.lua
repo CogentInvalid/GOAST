@@ -71,7 +71,7 @@ function ghost:update(dt)
 		if magnitude(self.phys.x - x, self.phys.y - y) < 120 and self.possessTimer <= 0 then
 			local ang = angle:new({x-self.phys.x, y-self.phys.y})
 			self.phys:addVel(ang.xPart*180*dt, ang.yPart*180*dt)
-			self.phys:addPos(ang.xPart*30*dt, ang.yPart*30*dt)
+			self.phys:addPos(ang.xPart*30*dt, ang.yPart*50*dt)
 
 			--possess target
 			if magnitude(self.phys.x - x, self.phys.y - y) < 2 then
