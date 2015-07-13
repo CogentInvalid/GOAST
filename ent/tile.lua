@@ -6,6 +6,7 @@ function tile:init(args)
 	local x=args[1]; local y=args[2]
 
 	imgn = args[3] or 0
+	self.img = img["tile-wall-mid"]
 
 	self.id = "tile"
 	--self.drawLayer = "front"
@@ -33,6 +34,8 @@ function tile:draw()
 
 	love.graphics.setColor(255,255,255)
 	love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
+
+	love.graphics.draw(self.img, self.phys.x, self.phys.y)
 
 end
 

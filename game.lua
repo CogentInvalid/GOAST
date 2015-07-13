@@ -86,6 +86,12 @@ end
 function game:draw()
 	love.graphics.setShader(effect)
 	self.cam.cam:draw(function(l,t,w,h)
+		love.graphics.setColor(255,255,255)
+		for i=1, 5 do
+			for j=1, 2 do
+				love.graphics.draw(img["tile-floor"], (i-1)*320, (j-1)*320, 0, 2, 2)
+			end
+		end
 		--for i,layer in ipairs(self.drawOrder) do
 			for j,entity in ipairs(self.ent) do
 				--if entity.drawLayer == layer then

@@ -131,6 +131,7 @@ function enemy:update(dt)
 end
 
 function enemy:shoot(target)
+	if target == false then return end
 	local x = target.phys.x; local y = target.phys.y
 	local ang = angle:new({x - self.phys.x, y - self.phys.y})
 	ang:addTheta((math.random()-0.5)*0.5)
