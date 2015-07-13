@@ -42,7 +42,7 @@ function game:start()
 	self.playing = true
 	self.endTimer = 3
 
-	self.p = self:addEnt(player, {25, 25})
+	self.p = self:addEnt(player, {30, 120})
 
 	self.levMan:loadLevel("level")
 
