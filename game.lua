@@ -100,6 +100,7 @@ function game:lose()
 	for i,entity in ipairs(self.ent) do
 
 		if entity.id == "ghost" then entity.die = true end
+		if entity.id == "enemy" then entity.possessed = false end
 
 	end
 	self.playing = false
