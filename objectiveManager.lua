@@ -23,8 +23,8 @@ function objectiveManager:update(dt)
 end
 
 function objectiveManager:draw()
-	love.graphics.setColor(255,0,0)
-	love.graphics.rectangle("fill", 30 + 365-(self.obj1/120)*360, 570, (self.obj1/120)*360, 20)
+	love.graphics.setColor(255,0,0, 200)
+	love.graphics.rectangle("fill", 30 + 365-(self.obj1/120)*360, 575, (self.obj1/120)*360, 20)
 	love.graphics.rectangle("fill", 410, 575, (self.obj2/120)*360, 20)
 
 	love.graphics.setColor(0,0,0)
