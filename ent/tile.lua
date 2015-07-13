@@ -5,6 +5,8 @@ tile = class:new()
 function tile:init(args)
 	local x=args[1]; local y=args[2]
 
+	imgn = args[3] or 0
+
 	self.id = "tile"
 	--self.drawLayer = "front"
 

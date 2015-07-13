@@ -32,7 +32,10 @@ end
 function objective:draw()
 
 	love.graphics.setColor(0,0,255)
-	love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
+	--love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
+
+	love.graphics.setColor(255,255,255)
+	love.graphics.draw(img["generator"], self.phys.x-2, self.phys.y-2)
 
 end
 
