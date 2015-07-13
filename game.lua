@@ -21,7 +21,7 @@ function game:init()
 	frame = 0
 	pause = false
 
-	self:start()
+	--self:start()
 
 end
 
@@ -49,6 +49,8 @@ function game:start()
 	for i=1, 5 do
 		self.spawnMan:spawn(250)
 	end
+
+	audioManager:switchMusic(sfx["bgm"])
 
 end
 
@@ -85,6 +87,7 @@ function game:update(delta)
 			self.endTimer = self.endTimer - dt
 			if self.endTimer <= 0 then
 				currentMode = lose
+				audioManager:stopMusic()
 			end
 		end
 

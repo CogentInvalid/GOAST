@@ -4,6 +4,7 @@ anim8 = require "libs/anim8"
 require "game"
 require "endMenu"
 require "startMenu"
+require "audioManager"
 
 function love.load()
 
@@ -17,7 +18,7 @@ function love.load()
 	love.graphics.setFont(font)
 
 	--imgManager = imageManager:new()
-	--audioManager = audioManager:new()
+	audioManager = audioManager:new()
 
 	--different classes for different "modes" of gameplay.
 	gameMode = game:new()

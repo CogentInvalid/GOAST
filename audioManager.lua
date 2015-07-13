@@ -13,7 +13,7 @@ function audioManager:init()
 		end
 	end
 
-	--self.currentTrack = sfx['bgm']
+	self.currentTrack = sfx['bgm']
 end
 
 function audioManager:update(dt)
@@ -25,4 +25,8 @@ function audioManager:switchMusic(source)
 	self.currentTrack = source
 	self.currentTrack:setLooping(true)
 	self.currentTrack:play()
+end
+
+function audioManager:stopMusic()
+	self.currentTrack:stop()
 end
