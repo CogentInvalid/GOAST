@@ -83,6 +83,10 @@ function game:update(delta)
 
 end
 
+function game:lose()
+	currentMode = lose
+end
+
 function game:draw()
 	love.graphics.setShader(effect)
 	self.cam.cam:draw(function(l,t,w,h)
