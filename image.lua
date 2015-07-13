@@ -27,15 +27,21 @@ function loadImages()
 			number dist = sqrt((x-x2)*(x-x2)+(y-y2)*(y-y2));
 			if(dist > 400)
 			{
-				r = r*amt*amt;
-				g = g*amt*amt;
-				b = b*amt*amt;
+				r = r*pow(amt,1.4);
+				g = g*pow(amt,1.4);
+				b = b*pow(amt,1.4);
 			}
 			if(dist > 200)
 			{
 				r = r*amt;
 				g = g*amt;
 				b = b*amt;
+			}
+			if(dist < 200)
+			{
+				r = r*pow(amt,0.5);
+				g = g*pow(amt,0.5);
+				b = b*pow(amt,0.5);
 			}
             return vec4(r, g, b, a);
         }
