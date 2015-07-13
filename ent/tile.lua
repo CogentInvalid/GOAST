@@ -9,6 +9,10 @@ function tile:init(args)
 	self.img = img["tile-wall-mid"]
 
 	if imgn == 1 then self.img = img["tile-column-mid"] end
+	if imgn == 2 then self.img = img["tile-column-top"] end
+
+	if imgn == 3 then self.img = img["tile-wall-right"] end
+	if imgn == 4 then self.img = img["tile-wall-left"] end
 
 	self.id = "tile"
 	--self.drawLayer = "front"
