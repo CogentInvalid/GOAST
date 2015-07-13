@@ -29,6 +29,9 @@ function levelManager:loadLevel(name)
 				if r==0 and g==0 and b==0 then
 					self.parent:addEnt(tile, {x*20, y*20, 0})
 				end
+				if r==0 and g==255 and b==0 then
+					self.parent:addEnt(tile, {x*20, y*20, 1})
+				end
 				if r==255 and g==0 and b==0 then
 					local spawn = self.parent.spawnMan
 					spawn:addSpawnPoint(x*20+4, y*20+4)

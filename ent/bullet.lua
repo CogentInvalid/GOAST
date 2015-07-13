@@ -32,7 +32,9 @@ end
 function bullet:draw()
 
 	love.graphics.setColor(255,255,255)
-	love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
+	--love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
+
+	love.graphics.draw(img["bullet"], self.phys.x-1, self.phys.y-1, 0, 2, 2)
 
 end
 

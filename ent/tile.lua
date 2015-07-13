@@ -8,6 +8,8 @@ function tile:init(args)
 	imgn = args[3] or 0
 	self.img = img["tile-wall-mid"]
 
+	if imgn == 1 then self.img = img["tile-column-mid"] end
+
 	self.id = "tile"
 	--self.drawLayer = "front"
 
