@@ -27,6 +27,7 @@ function enemy:init(args)
 	self.burstTimer = 1.5
 
 	self.possessed = false
+	self.lifeTimer = 20
 
 	self.img = img["enemy-spritesheet"]
 	self.quad = {}
@@ -53,6 +54,10 @@ function enemy:update(dt)
 	--shooting
 	local target = gameMode.p
 	if self.possessed then
+		--count down life timer
+		self.lifeTimer = self.lifeTimer - dt
+		if self.lifeTimer <= 0 then self.die = true end
+
 		--find target
 		local nearest = 9999
 		target = false
@@ -155,6 +160,9 @@ function enemy:draw()
 
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(self.img, self.quad[self.dir], math.floor(self.phys.x-4), math.floor(self.phys.y-4), 0, 2, 2)
+
+	love.graphics.setColor(255,0,0)
+	if self.possessed then love.graphics.rectangle("fill", self.phys.x, self.phys.y+30, (self.lifeTimer/10)*24, 4) end
 
 end
 

@@ -11,6 +11,8 @@ function camera:init(parent)
 	self.cam:setPosition(0,0)
 	self.screenShake = 0
 
+	self.zooming = false
+
 	self.x = self.cam.x
 	self.y = self.cam.y
 
@@ -35,13 +37,11 @@ function camera:update(dt)
 		self.y = self.y - (self.y-ty)*5*dt
 
 		local s = self.cam:getScale()
+		if self.zooming then
+			self.cam:setScale(s + (2-s)*dt)
+		end
 		if s < 1 then self.cam:setScale(s+(0.8-s)*0.5*dt) end
 
-		if love.keyboard.isDown("z") then
-			local amt = 0.2
-			if (s-1) <= 0.2 then amt = (s-1) end
-			self.cam:setScale(s-amt*dt)
-		end
 	end
 	if self.screenShake > 0 then
 		self.x = self.x + math.random()*30*20*dt-(30*10*dt)

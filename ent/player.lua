@@ -80,12 +80,21 @@ end
 function player:resolveCollision(entity, dir)
 	if (entity.id == "tile" or entity.id == "objective") and (not keyDown("e")) then self.phys:hitSide(entity, dir) end
 	if entity.id == "bullet" then
-		if not entity.friendly then gameMode:lose() end
+		if not entity.friendly then
+			self:death()
+		end
 	end
 	if entity.id == "enemy" then
-		if not entity.possessed then gameMode:lose() end
+		if not entity.possessed then
+			self:death()
+		end
 	end
 	if entity.id == "objective" then
 		gameMode.objMan:addCharge(entity.num)
 	end
+end
+
+function player:death()
+	self.alive = false
+	gameMode:lose()
 end

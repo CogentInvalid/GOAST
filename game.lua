@@ -39,6 +39,9 @@ function game:start()
 
 	self.ent = {}
 
+	self.playing = true
+	self.endTimer = 3
+
 	self.p = self:addEnt(player, {25, 25})
 
 	self.levMan:loadLevel("level")
@@ -77,6 +80,14 @@ function game:update(delta)
 			if self.ent[i].phys.col then self.colMan:collide(self.ent[i], self.ent[i].phys.collideOrder) end
 		end
 
+		--end game
+		if not self.playing then
+			self.endTimer = self.endTimer - dt
+			if self.endTimer <= 0 then
+				currentMode = lose
+			end
+		end
+
 		accum = accum - 0.01
 	end
 	if accum>0.1 then accum = 0 end
@@ -84,7 +95,15 @@ function game:update(delta)
 end
 
 function game:lose()
-	currentMode = lose
+	self.cam.target = self.p
+	self.cam.zooming = true
+	for i,entity in ipairs(self.ent) do
+
+		if entity.id == "ghost" then entity.die = true end
+
+	end
+	self.playing = false
+	--currentMode = lose
 end
 
 function game:draw()
@@ -129,6 +148,7 @@ function game:keypressed(key)
 			if entity.id == "enemy" then
 				if entity.possessed then
 					entity.possessed = false
+					entity.lifeTimer = 20
 					local g = self:addEnt(ghost, {entity.phys.x, entity.phys.y})
 					g.phys.vx = entity.phys.vx * 2
 					g.phys.vy = entity.phys.vy * 2

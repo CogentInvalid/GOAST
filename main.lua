@@ -12,6 +12,8 @@ function love.load()
 	love.window.setTitle("GÖAST")
 
 	love.graphics.setDefaultFilter("nearest", "nearest")
+	font = love.graphics.newFont(24)
+	love.graphics.setFont(font)
 
 	--imgManager = imageManager:new()
 	--audioManager = audioManager:new()

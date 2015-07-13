@@ -17,6 +17,9 @@ end
 function endMenu:draw()
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(img["deathscreen"], 400, 300, self.haha*(0.6+self.rofl*20), 1, 1, 400, 300)
+	love.graphics.draw(img["enter"], 190, 380)
+	love.graphics.setColor(255,0,0)
+	love.graphics.print("SCORE: " .. gameMode.objMan.score, 350, 700)
 end
 
 function endMenu:keypressed(key)

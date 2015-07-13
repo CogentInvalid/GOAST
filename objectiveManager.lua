@@ -6,10 +6,16 @@ function objectiveManager:init(parent)
 	self.obj1 = 120
 	self.obj2 = 120
 
+	self.score = 0
+	self.time = 0
+
 	self.parent = parent
 end
 
 function objectiveManager:update(dt)
+
+	if gameMode.playing then self.time = self.time + dt end
+	self.score = math.floor(self.time)
 
 	self.obj1 = self.obj1 - 0.75*dt
 	self.obj2 = self.obj2 - 0.75*dt
@@ -18,8 +24,13 @@ end
 
 function objectiveManager:draw()
 	love.graphics.setColor(255,0,0)
-	love.graphics.rectangle("fill", 30 + 360-(self.obj1/120)*360, 570, (self.obj1/120)*360, 20)
-	love.graphics.rectangle("fill", 410, 570, (self.obj2/120)*360, 20)
+	love.graphics.rectangle("fill", 30 + 365-(self.obj1/120)*360, 570, (self.obj1/120)*360, 20)
+	love.graphics.rectangle("fill", 410, 575, (self.obj2/120)*360, 20)
+
+	love.graphics.setColor(0,0,0)
+	love.graphics.print(self.score, 400+2, 20+2, 0, 1, 1)
+	love.graphics.setColor(255,0,0)
+	love.graphics.print(self.score, 400, 20, 0, 1, 1)
 end
 
 function objectiveManager:getBrightness()
