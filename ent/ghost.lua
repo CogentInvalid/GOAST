@@ -73,6 +73,10 @@ function ghost:update(dt)
 			self.phys:addVel(ang.xPart*180*dt, ang.yPart*180*dt)
 			self.phys:addPos(ang.xPart*30*dt, ang.yPart*50*dt)
 
+			if magnitude(self.phys.x - x, self.phys.y - y) < 20 then
+				self.phys:addPos(ang.xPart*30*dt, ang.yPart*50*dt)
+			end
+
 			--possess target
 			if magnitude(self.phys.x - x, self.phys.y - y) < 2 then
 				self.die = true
