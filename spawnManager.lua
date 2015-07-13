@@ -22,7 +22,7 @@ function spawnManager:update(dt)
 	--spawn rate calculations
 	local easing = math.pow((self.totalTime+20)/20, -1)
 	local difficulty = (math.cos(math.pi*self.totalTime/45))
-	local a = (0.035 * difficulty + 0.165) * (math.pow(1.01, -0.2*self.totalTime)+0.2)
+	local a = (0.035 * difficulty + 0.165) * (math.pow(1.01, -0.25*self.totalTime)+0.2)
 	local c = (0.5 * difficulty + 1) * (math.pow(1.01, -0.2*self.totalTime)+0.2)
 	local spawnRate = (a*self.enemies*self.enemies - 0.0166667*self.enemies + c)*(1+easing)
 

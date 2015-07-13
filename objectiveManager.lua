@@ -17,8 +17,8 @@ function objectiveManager:update(dt)
 	if gameMode.playing then self.time = self.time + dt end
 	self.score = math.floor(self.time)
 
-	self.obj1 = self.obj1 - 0.75*dt
-	self.obj2 = self.obj2 - 0.75*dt
+	self.obj1 = self.obj1 - (0.6+math.log(self.time*0.05)/7)*dt
+	self.obj2 = self.obj2 - (0.6+math.log(self.time*0.05)/7)*dt
 
 	if self.obj1 <= 0 or self.obj2 <= 0 then self.parent.p:death() end
 
