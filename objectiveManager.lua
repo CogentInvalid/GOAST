@@ -3,8 +3,8 @@ objectiveManager = class:new()
 function objectiveManager:init(parent)
 	self.id = "objectiveManager"
 
-	self.obj1 = 120
-	self.obj2 = 120
+	self.obj1 = 70
+	self.obj2 = 80
 
 	self.score = 0
 	self.time = 0
@@ -19,6 +19,8 @@ function objectiveManager:update(dt)
 
 	self.obj1 = self.obj1 - 0.75*dt
 	self.obj2 = self.obj2 - 0.75*dt
+
+	if self.obj1 <= 0 or self.obj2 <= 0 then self.parent.p:death() end
 
 end
 

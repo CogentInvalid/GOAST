@@ -17,6 +17,11 @@ function objective:init(args)
 	self.component[#self.component+1] = self.phys
 	self.phys.col = false
 
+	self.img = "generator"
+	self.seq = {"generator", "generator2", "generator3", "generator4", "generator3", "generator2"}
+	self.seqPos = 1
+	self.animTimer = 0.15
+
 	self.die = false --should this entity be destroyed next frame?
 end
 
@@ -27,6 +32,14 @@ function objective:update(dt)
 		comp:update(dt)
 	end
 
+	self.animTimer = self.animTimer - dt
+	if self.animTimer < 0 then
+		self.seqPos = self.seqPos + 1
+		if self.seqPos > #self.seq then self.seqPos = 1 end
+		self.img = self.seq[self.seqPos]
+		self.animTimer = 0.15
+	end
+
 end
 
 function objective:draw()
@@ -35,7 +48,7 @@ function objective:draw()
 	--love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
 
 	love.graphics.setColor(255,255,255)
-	love.graphics.draw(img["generator"], self.phys.x-2, self.phys.y-2)
+	love.graphics.draw(img[self.img], self.phys.x-2, self.phys.y-2)
 
 end
 

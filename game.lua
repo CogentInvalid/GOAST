@@ -159,7 +159,7 @@ function game:keypressed(key)
 end
 
 function game:mousepressed(x, y, button)
-	self:addEnt(enemy, {x, y})
+	--self:addEnt(enemy, {x, y})
 end
 
 function game:addEnt(type, args)
