@@ -104,7 +104,6 @@ function game:lose()
 
 	end
 	self.playing = false
-	--currentMode = lose
 end
 
 function game:draw()

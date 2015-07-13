@@ -3,6 +3,7 @@ require "libs/angle"
 anim8 = require "libs/anim8"
 require "game"
 require "endMenu"
+require "startMenu"
 
 function love.load()
 
@@ -20,9 +21,9 @@ function love.load()
 
 	--different classes for different "modes" of gameplay.
 	gameMode = game:new()
-	--menu = mainMenu:new()
+	menu = startMenu:new()
 	lose = endMenu:new()
-	currentMode = gameMode
+	currentMode = menu
 
 end
 
