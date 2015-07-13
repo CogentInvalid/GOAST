@@ -67,6 +67,11 @@ function game:update(delta)
 			if entity.die then self:removeEnt(entity, i) end
 		end
 
+		--update shader
+		effect:send("x", self.p.phys.x-self.cam.cam.x+400)
+		effect:send("y", 600-self.p.phys.y-self.cam.cam.y+300)
+		effect:send("amt", self.objMan:getBrightness())
+
 		--collide stuff
 		for i=1, #self.ent do
 			if self.ent[i].phys.col then self.colMan:collide(self.ent[i], self.ent[i].phys.collideOrder) end
@@ -79,6 +84,7 @@ function game:update(delta)
 end
 
 function game:draw()
+	love.graphics.setShader(effect)
 	self.cam.cam:draw(function(l,t,w,h)
 		--for i,layer in ipairs(self.drawOrder) do
 			for j,entity in ipairs(self.ent) do
@@ -94,6 +100,7 @@ function game:draw()
 		--end
 
 	end)
+	love.graphics.setShader()
 	self.objMan:draw()
 end
 
