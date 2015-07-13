@@ -121,6 +121,7 @@ function ghost:draw()
 	--love.graphics.rectangle("fill", self.phys.x, self.phys.y, self.phys.w, self.phys.h)
 
 	love.graphics.setColor(255,255,255,150)
+	if keyDown("z") or keyDown(" ") then love.graphics.setColor(255,255,255) end
 	love.graphics.draw(self.img, self.quad[self.dir], math.floor(self.phys.x-4), math.floor(self.phys.y-4), 0, 2, 2)
 
 end

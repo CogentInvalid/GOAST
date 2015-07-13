@@ -95,6 +95,7 @@ function player:resolveCollision(entity, dir)
 end
 
 function player:death()
+	sfx["meow"]:play()
 	self.alive = false
 	gameMode:lose()
 end

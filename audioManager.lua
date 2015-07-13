@@ -14,6 +14,7 @@ function audioManager:init()
 	end
 
 	self.currentTrack = sfx['bgm']
+	sfx["meow"]:setLooping(false)
 end
 
 function audioManager:update(dt)
