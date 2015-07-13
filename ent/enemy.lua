@@ -162,7 +162,7 @@ function enemy:draw()
 	love.graphics.draw(self.img, self.quad[self.dir], math.floor(self.phys.x-4), math.floor(self.phys.y-4), 0, 2, 2)
 
 	love.graphics.setColor(255,0,0)
-	if self.possessed then love.graphics.rectangle("fill", self.phys.x, self.phys.y+30, (self.lifeTimer/10)*24, 4) end
+	if self.possessed then love.graphics.rectangle("fill", self.phys.x, self.phys.y+30, (self.lifeTimer/20)*24, 4) end
 
 end
 
