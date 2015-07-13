@@ -138,7 +138,7 @@ end
 
 function game:keypressed(key)
 	--become a goast
-	if key == "z" then
+	if key == "z" or key == " " then
 		--leave player
 		if self.p.alive then
 			self.p.alive = false

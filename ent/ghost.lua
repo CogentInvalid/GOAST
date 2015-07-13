@@ -51,7 +51,7 @@ function ghost:update(dt)
 	self.phys:addVel(xMove, yMove)
 
 	--possession
-	if keyDown("z") then
+	if keyDown("z") or keyDown(" ") then
 
 		--find target
 		local nearest = 9999
